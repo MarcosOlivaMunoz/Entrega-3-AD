@@ -1,0 +1,14 @@
+---
+title: "Entrega 3"
+subtitle: "???"
+author:
+  - "Marcos Oliva"
+  - "Hugo García"
+date: 10/02/2023
+format:
+  revealjs:
+    theme: beige
+lang: ES
+---
+
+# Introducción y variables
