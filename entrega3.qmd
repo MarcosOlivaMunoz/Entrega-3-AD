@@ -6,6 +6,7 @@ author:
   - "Hugo García"
 date: 10/02/2023
 format: html
+embed-resources: true
 lang: ES
 ---
 
@@ -15,12 +16,9 @@ library("tidyverse", warn.conflicts = FALSE)
 load(url("https://www.causeweb.org/tshs/datasets/ultrarunning.RData"))
 ```
 
-
-
 # Introducción
 
-En las siguientes secciones, vamos a hacer un análisis multivariable sobre el dataset `UltraRunning`, proveniente de la base de datos de [Teaching of Statistics in the Health Sciences](https://www.causeweb.org/tshs/ultra-running).
-Para acceder al repositorio de GitHub de esta entrega, haga clic [aquí](https://github.com/MarcosOlivaMunoz/Entrega-3-AD.git).
+En las siguientes secciones, vamos a hacer un análisis multivariable sobre el dataset `UltraRunning`, proveniente de la base de datos de [Teaching of Statistics in the Health Sciences](https://www.causeweb.org/tshs/ultra-running). Para acceder al repositorio de GitHub de esta entrega, haga clic [aquí](https://github.com/MarcosOlivaMunoz/Entrega-3-AD.git).
 
 ## Sobre los datos
 
@@ -41,6 +39,19 @@ Este dataset tiene 10 variables diferentes, que explicaremos a continuación:
 -   `pb100k_time`: Este es un dato cuantitativo discreto que muestra el mejor tiempo del competidor (auto-proclamado) en el formato de hora estándard `hh:mm:ss`.
 -   `pb100k_dec`: Este es un dato cuantitativo contínuo que muestra el mejor tiempo del competidor (auto-proclamado) en horas.
 -   `avg_km`: Este es un dato cuantitativo contínuo que muestra la distancia media que el competidor corre cada semana (auto-proclamado) en kilómetros.
--   `teique_sf`: Este es un dato cuantitativo discreto que muestra la puntuación en la prueba de inteligencia emocional.
--   `steu_b`: Este es un dato cuantitativo discreto que muestra la puntuación en la prueba de comprensión emocional.
--   `stem_b`: Este es un dato cuantitativo discreto que muestra la puntuación en la prueba de gestión emocional.
+-   `teique_sf`: Este es un dato cuantitativo contínuo que muestra la puntuación en la prueba de inteligencia emocional. El número está entre $1$ y $7$ y proviene de la media de 30 valores.
+-   `steu_b`: Este es un dato cuantitativo discreto que muestra la puntuación en la prueba de comprensión emocional. El número está entre $0$ y $19$ y proviene de la suma de 19 valores.
+-   `stem_b`: Este es un dato cuantitativo contínuo que muestra la puntuación en la prueba de gestión emocional. El número está entre $0$ y $18$ y proviene de la suma de 19 valores.
+
+# Análisis multivariable
+
+Antes de comenzar, queremos comentar varios problemas que conlleva el dataset utilizado en este proyecto:
+- En primer lugar el dataset esta bastante *tidy*, pero no es perfecto: las variables cualitativas están almacenadas como variables cuantitativas discretas; es decir, tienen un número asociado en vez de un factor. Arreglémoslo.
+
+```{r Datos *Tidy*}
+ultrarunning %>% as_tibble()
+ultrarunning <- ultrarunning %>% as_tibble() %>% mutate(sex = factor(sex,
+  levels=c(1, 2), labels=c("Male", "Female"))) %>% mutate(pb_surface =
+  factor(pb_surface,  levels=c(1, 2, 3, 4), labels=c("Trail", "Track", "Road",
+  "Mixed"))); ultrarunning
+```
