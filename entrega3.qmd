@@ -22,11 +22,11 @@ En las siguientes secciones, vamos a hacer un análisis multivariable sobre el d
 
 ## Sobre los datos
 
-La Inteligencia Emocional (IE, en inglés), dada la definición de la RAE, es "la capacidad de percibir y controlar los propios sentimientos y saber interpretar los de los demás". Su aplicación ha proporcionado importantes conocimientos sobre el papel de la inteligencia emocional en muchos aspectos de nuestras vidas, incluido el éxito profesional, el liderazgo y el éxito en las relaciones interpersonales. Estudios recientes también han explorado el rol de la inteligencia emocional en el rendimiento deportivo y, en particular, el rol de la inteligencia emocional en el rendimiento de deportes de resistencia extrema. Un ejemplo son las ultra-maratones de 100 km, donde se puede esperar que este incite emociones muy fuertes y el deseo de abandonar.
+La Inteligencia Emocional (EI, en inglés), dada la definición de la RAE, es "la capacidad de percibir y controlar los propios sentimientos y saber interpretar los de los demás". Su aplicación ha proporcionado importantes conocimientos sobre el papel de la inteligencia emocional en muchos aspectos de nuestras vidas, incluido el éxito profesional, el liderazgo y el éxito en las relaciones interpersonales. Estudios recientes también han explorado el rol de la inteligencia emocional en el rendimiento deportivo y, en particular, el rol de la inteligencia emocional en el rendimiento de deportes de resistencia extrema. Un ejemplo son las ultra-maratones de 100 km, donde se puede esperar que este incite emociones muy fuertes y el deseo de abandonar.
 
 El dataset contienen los datos de 288 individuos que completaron ultra-maratones de 100 km y a los cuales se le aplicaron una prueba de inteligencia emocional en tres partes (Tripartite-EI).
 
-Brevemente, el modelo Tripartite-EI postula que la inteligencia emocional opera en tres niveles: inteligencia, comprensión y gestión. El conocimiento representa lo que sabemos sobre nuestras emociones y las de los demás, su origen y cómo gestionarlas; la habilidad representa nuestra habilidad para implementar nuestro conocimiento emocional en tiempo real; y la gestión representa nuestros patrones habituales de respuesta a las emociones.
+Brevemente, el modelo Tripartite-EI postula que la inteligencia emocional opera en tres niveles: inteligencia, comprensión y gestión. La inteligencia representa lo que sabemos sobre nuestras emociones y las de los demás, su origen y cómo gestionarlas; la comprensión representa nuestra habilidad para implementar nuestra inteligencia emocional en tiempo real; y la gestión representa nuestros patrones habituales de respuesta a las emociones.
 
 ## Variables
 
