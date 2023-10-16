@@ -47,5 +47,49 @@ corregir <- function(dataframe, mode) {
 }
   
 correlacion(ultrarunning)  # Control
-corregir(ultrarunning, "mean") %>% select(c(1,4,6:10)) %>% na.omit(.) %>% cor(.)
-norm(correlacion(ultrarunning) - correlacion(corregir("mean"))) 
+ult_corregido<-corregir(ultrarunning, "mean") 
+#norm(correlacion(ultrarunning) - correlacion(corregir(ultrarunning,"mean"))) 
+
+#gráfico en el que se muestran todos los individuos juntos
+a<-ult_corregido %>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+
+pairs(a,
+      col = c("red", "blue")[as.integer(a$sex)],
+      pch = 18)
+
+#gráfico para ver sólo los hombres
+a<-ult_corregido %>%filter(sex == "Male")%>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+ggpairs(a)
+
+#gráfico para ver sólo las mujeres
+a<-ult_corregido %>%filter(sex == "Female")%>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+ggpairs(a)
+
+#gráficos de estrella según si son hombre o mujer.
+a<-ult_corregido %>%filter(sex == "Male") %>%
+  select(1,4,6,7,8,9,10)
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(sex == "Female") %>%
+  select(1,4,6,7,8,9,10)
+stars(a,key.loc = c(36, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+#gráfico para ver la diferencia entre distintos terrenos
+a<-ult_corregido %>%
+  select(3,1,4,6,7,8,9,10) %>%
+  na.omit
+
+pairs(a,
+      col = c("green", "purple","orange","blue")[as.integer(a$pb_surface)],
+      pch = 18)
+
+ggpairs(a)
+
