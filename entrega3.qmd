@@ -55,3 +55,116 @@ ultrarunning <- ultrarunning %>% as_tibble() %>% mutate(sex = factor(sex,
   factor(pb_surface,  levels=c(1, 2, 3, 4), labels=c("Trail", "Track", "Road",
   "Mixed"))); ultrarunning
 ```
+
+Seguiremos remplazando los NAs, para ello tenemos tres opciones:
+La primera sería tomar el valor de arriba, la segunda tomar el valor de abajo y por última opción y la que usaremos será tomar la media de todos los valores de la variable. Tomamos esta debido a que es la cambia menos la correlación respecto a los datos quitando los NAs.
+
+Primero creamos la función para calcular la correlación
+
+```{r}
+correlacion <- function(dataframe) {
+  dataframe %>% select(c(1,4,6:10)) %>% na.omit(.) %>% cor(.) %>% 
+    ggcorrplot(., hc.order = TRUE, type = "lower", 
+               colors = c("#FF0000", "#FFFFFF", "#00FF00"))
+}
+
+```
+
+Proseguimos creando un programa que nos sustituya los NAs de las tres formas citadas anteriormente:
+
+```{r}
+corregir <- function(dataframe, mode) {
+  if (mode == "up") {
+    dataframe <- dataframe %>% fill(age, .direction = "up") %>%
+      fill(pb_elev, .direction = "up") %>% fill(pb100k_dec, .direction = "up") %>%
+      fill(avg_km, .direction = "up") %>% fill(teique_sf, .direction = "up") %>%
+      fill(steu_b, .direction = "up") %>% fill(stem_b, .direction = "up")
+  }
+  else{
+    if (mode == "down") {
+      dataframe <- dataframe %>% fill(age, .direction = "down") %>%
+        fill(pb_elev, .direction = "down") %>% fill(pb100k_dec, .direction = "down") %>%
+        fill(avg_km, .direction = "down") %>% fill(teique_sf, .direction = "down") %>%
+        fill(steu_b, .direction = "down") %>% fill(stem_b, .direction = "down")
+    }
+    else{
+      if (mode == "mean") {
+        dataframe <- dataframe %>% 
+          replace_na(replace = list(age = round(mean(.$age, na.rm = T),0),
+                                    pb_elev = round(mean(.$pb_elev, na.rm = T),0),
+                                    pb100k_dec = round(mean(.$pb100k_dec, na.rm = T),2),
+                                    avg_km = round(mean(.$avg_km, na.rm = T),0),
+                                    teique_sf = round(mean(.$teique_sf, na.rm = T),6),
+                                    steu_b = round(mean(.$steu_b, na.rm = T),0),
+                                    stem_b = round(mean(.$stem_b, na.rm = T),6)))
+      }
+    }
+  }
+}
+```
+
+Ahora calculamos la mejor opción de las 3:
+
+```{r}
+
+```
+
+Legamos a la conclusión de que la mejor opción es tomar la media.
+
+# Gráficos multivariantes
+Para visualizar mejor los datos hemos creados diversos gráficos:
+
+Comenzaremos analizando el gráfico más general que muestra todos los datos cuantitativos y el sexo:
+
+```{r}
+ult_corregido<-corregir(ultrarunning, "mean")
+a<-ult_corregido %>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+
+pairs(a,
+      col = c("red", "blue")[as.integer(a$sex)],
+      pch = 18)
+```
+
+Seguimos con los datos separados por sexo para observar si hay alguna diferencia por sexo. Primero un gráfico más complejo y luego uno más visual.
+
+Hombres:
+```{r}
+#gráfico para ver sólo los hombres
+a<-ult_corregido %>%filter(sex == "Male")%>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+ggpairs(a)
+
+a<-ult_corregido %>%filter(sex == "Male") %>%
+  select(1,4,6,7,8,9,10)
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+Mujeres:
+```{r}
+#gráfico para ver sólo las mujeres
+a<-ult_corregido %>%filter(sex == "Female")%>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+ggpairs(a)
+
+a<-ult_corregido %>%filter(sex == "Female") %>%
+  select(1,4,6,7,8,9,10)
+stars(a,key.loc = c(36, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
+Para finalizar haremos un gráfico diferenciando entre los tipos de terreno:
+
+```{r}
+pairs(a,
+      col = c("green", "purple","orange","blue")[as.integer(a$pb_surface)],
+      pch = 18)
+
+ggpairs(a)
+
+```
+
+
