@@ -131,6 +131,7 @@ Seguimos con los datos separados por sexo para observar si hay alguna diferencia
 
 Hombres:
 ```{r}
+library(GGally)
 #gráfico para ver sólo los hombres
 a<-ult_corregido %>%filter(sex == "Male")%>%
   select(2,1,4,6,7,8,9,10) %>%
@@ -159,6 +160,9 @@ stars(a,key.loc = c(36, 1),cex=0.45,
 Para finalizar haremos un gráfico diferenciando entre los tipos de terreno:
 
 ```{r}
+a<-ult_corregido %>%
+  select(3,1,4,6,7,8,9,10) %>%
+  na.omit
 pairs(a,
       col = c("green", "purple","orange","blue")[as.integer(a$pb_surface)],
       pch = 18)
