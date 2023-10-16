@@ -1,5 +1,5 @@
 ---
-title: "Entrega 3"
+title: "Ultrarunning"
 subtitle: "???"
 author:
   - "Marcos Oliva"
@@ -19,6 +19,7 @@ plantilla
 
 ## Sobre los datos
 - La Inteligencia Emocional tiene una relación con el éxito profesional y en las relaciones interpersonales
+
 ::: {.incremental}
 - 288 competidores de ultra-maratones de 100km los cuales tomaron un test de inteligencia emocional
 - El test se divide en tres categorias: inteligencia, comprensión y gestión

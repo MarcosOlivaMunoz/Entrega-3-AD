@@ -1,5 +1,6 @@
 library(tidyverse, warn.conflicts = FALSE)
 library(ggcorrplot)
+library(GGally)
 
 load(url("https://www.causeweb.org/tshs/datasets/ultrarunning.RData"))
 
@@ -92,4 +93,12 @@ pairs(a,
       pch = 18)
 
 ggpairs(a)
+
+#================================================
+
+
+
+ult_corregido <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
 
