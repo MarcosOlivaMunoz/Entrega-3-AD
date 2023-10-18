@@ -156,6 +156,8 @@ a<-ult_corregido %>%filter(sex == "Female") %>%
 stars(a,key.loc = c(36, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
+Notamos la gran diferencia entre la correlación de EQ y la distancia media en km que corren los atletas. Podemos observar que en hombres la correlación es de -0.208 y la de mujeres es de 0.069. También cabe destacar la correlación entre comprensión emocional y gestión emocinal que en hombres tiene una correlación de 0.315 y en mujeres 0.092.
+
 
 Para finalizar haremos un gráfico diferenciando entre los tipos de terreno:
 
@@ -171,6 +173,8 @@ ggpairs(a)
 
 
 ```
+En cuanto a los terrenos observamos que la moyoría de sujetos corre en sendero y no parece que haya ninguna correlación clara entre tipo de sendero y rendimiento o inteligencia emocional.
+
 Continuaremos con gráficos de estrella según las puntuaciones en las pruebas de EQ separando en puntuaciones: Bajo, Medio y Alto para ver si hay alguna diferencia entre ellas y el rendimiento de los atletas.
 
 Primero graficamos inteligencia emocional.
@@ -180,7 +184,7 @@ Nivel Bajo:
 a<-ult_corregido %>%filter(teique_sf == "Bajo")%>%
   select(1,4,6,7) %>%
   na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+stars(a,key.loc = c(11, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 
@@ -189,7 +193,7 @@ Nivel Medio:
 a<-ult_corregido %>%filter(teique_sf == "Medio")%>%
   select(1,4,6,7) %>%
   na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+stars(a,key.loc = c(32, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 Nivel Alto:
@@ -215,7 +219,7 @@ Nivel medio:
 a<-ult_corregido %>%filter(steu_b == "Medio")%>%
   select(1,4,6,7) %>%
   na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+stars(a,key.loc = c(37, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 
@@ -233,7 +237,7 @@ Nivel bajo:
 a<-ult_corregido %>%filter(stem_b == "Bajo")%>%
   select(1,4,6,7) %>%
   na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+stars(a,key.loc = c(7, 2.5),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 
@@ -242,7 +246,7 @@ Nivel medio
 a<-ult_corregido %>%filter(stem_b == "Medio")%>%
   select(1,4,6,7) %>%
   na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+stars(a,key.loc = c(35, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 
@@ -251,7 +255,7 @@ Nivel alto:
 a<-ult_corregido %>%filter(stem_b == "Alto")%>%
   select(1,4,6,7) %>%
   na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+stars(a,key.loc = c(20, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 
