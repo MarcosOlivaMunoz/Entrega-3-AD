@@ -48,7 +48,7 @@ Este dataset tiene 10 variables diferentes, que explicaremos a continuación:
 Antes de comenzar, queremos comentar varios problemas que conlleva el dataset utilizado en este proyecto:
 - En primer lugar el dataset esta bastante *tidy*, pero no es perfecto: las variables cualitativas están almacenadas como variables cuantitativas discretas; es decir, tienen un número asociado en vez de un factor. Arreglémoslo.
 
-```{r Datos *Tidy*}
+```{r Datos *Tidy* }
 ultrarunning %>% as_tibble()
 ultrarunning <- ultrarunning %>% as_tibble() %>% mutate(sex = factor(sex,
   levels=c(1, 2), labels=c("Male", "Female"))) %>% mutate(pb_surface =
@@ -171,5 +171,89 @@ ggpairs(a)
 
 
 ```
+Continuaremos con gráficos de estrella según las puntuaciones en las pruebas de EQ separando en puntuaciones: Bajo, Medio y Alto para ver si hay alguna diferencia entre ellas y el rendimiento de los atletas.
+
+Primero graficamos inteligencia emocional.
+Nivel Bajo:
+
+```{r}
+a<-ult_corregido %>%filter(teique_sf == "Bajo")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
+Nivel Medio:
+```{r}
+a<-ult_corregido %>%filter(teique_sf == "Medio")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+Nivel Alto:
+```{r}
+a<-ult_corregido %>%filter(teique_sf == "Alto")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+Seguimos con la comprensión emocinal.
+Nivel bajo:
+```{r}
+a<-ult_corregido %>%filter(steu_b == "Bajo")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
+Nivel medio:
+```{r}
+a<-ult_corregido %>%filter(steu_b == "Medio")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
+nivel alto:
+```{r}
+a<-ult_corregido %>%filter(steu_b == "Alto")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+Finalizamos con la gestión emocional.
+Nivel bajo:
+```{r}
+a<-ult_corregido %>%filter(stem_b == "Bajo")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
+Nivel medio
+```{r}
+a<-ult_corregido %>%filter(stem_b == "Medio")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
+Nivel alto:
+```{r}
+a<-ult_corregido %>%filter(stem_b == "Alto")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+
 
 
