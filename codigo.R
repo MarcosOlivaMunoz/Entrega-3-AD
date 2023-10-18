@@ -102,3 +102,60 @@ ult_corregido <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3
 ult_corregido <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
 ult_corregido <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
 
+#teique_sf
+a<-ult_corregido %>%filter(teique_sf == "Bajo")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(teique_sf == "Medio")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(36, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(teique_sf == "Alto")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+#steu_b
+
+a<-ult_corregido %>%filter(steu_b == "Bajo")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(steu_b == "Medio")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(37, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(steu_b == "Alto")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+#stem_b
+a<-ult_corregido %>%filter(stem_b == "Bajo")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(stem_b == "Medio")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(37, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+
+a<-ult_corregido %>%filter(stem_b == "Alto")%>%
+  select(1,4,6,7) %>%
+  na.omit
+stars(a,key.loc = c(20, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
