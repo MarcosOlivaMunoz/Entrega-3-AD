@@ -175,12 +175,15 @@ Continuaremos con gráficos de estrella según las puntuaciones en las pruebas d
 
 Primero graficamos inteligencia emocional.
 Nivel Bajo:
-
+```{r}
+ult_corregido <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
+```
 ```{r}
 a<-ult_corregido %>%filter(teique_sf == "Bajo")%>%
-  select(1,4,6,7) %>%
-  na.omit
-stars(a,key.loc = c(15, 1),cex=0.45,
+  select(1,4,6,7); a
+stars(a, key.loc = c(15, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 

@@ -1,0 +1,94 @@
+---
+title: "Ultrarunning"
+subtitle: "Análisis exploratorio multivariante"
+author:
+  - "Marcos Oliva"
+  - "Hugo García"
+date: 10/02/2023
+format:
+  revealjs:
+    theme: beige
+embed-resources: true
+lang: ES
+---
+
+# Introducción y variables
+```{r Setup}
+#| include: false
+
+knitr::opts_chunk$set(echo=FALSE)
+library("tidyverse", warn.conflicts = FALSE)
+load(url("https://www.causeweb.org/tshs/datasets/ultrarunning.RData"))
+```
+
+## Sobre los datos
+::: {.incremental}
+- La Inteligencia Emocional tiene una relación con el éxito profesional y en las relaciones interpersonales
+- 288 competidores de ultra-maratones de 100km los cuales tomaron un test de inteligencia emocional
+- El test se divide en tres categorías: inteligencia, comprensión y gestión
+- El objetivo es determinar si los resultados del test ayudan a predecir el tiempo final del maratón
+:::
+::: {.notes}
+La Inteligencia Emocional (EI, en inglés), dada la definición de la RAE, es "la capacidad de percibir y controlar los propios sentimientos y saber interpretar los de los demás". Su aplicación ha proporcionado importantes conocimientos sobre el papel de la inteligencia emocional en muchos aspectos de nuestras vidas, incluido el éxito profesional, el liderazgo y el éxito en las relaciones interpersonales. Entonces, es lógico pensar que también puede estar involucrada en el rendimiento deportivo, como en los ultra-maratones de 100 km, donde se puede esperar que este incite emociones muy fuertes y el deseo de abandonar.
+
+El dataset contienen los datos de 288 individuos que completaron ultra-maratones de 100 km y a los cuales se le aplicaron una prueba de inteligencia emocional en tres partes (Tripartite-EI).
+
+Brevemente, el modelo Tripartite-EI postula que la inteligencia emocional opera en tres niveles: inteligencia, comprensión y gestión. La inteligencia representa lo que sabemos sobre nuestras emociones y las de los demás, su origen y cómo gestionarlas; la comprensión representa nuestra habilidad para implementar nuestra inteligencia emocional en tiempo real; y la gestión representa nuestros patrones habituales de respuesta a las emociones.
+:::
+
+---
+
+```{r}
+#| include: false
+ultrarunning <- ultrarunning %>% as_tibble() %>% mutate(sex = factor(sex,
+  levels=c(1, 2), labels=c("Male", "Female"))) %>% mutate(pb_surface =
+  factor(pb_surface,  levels=c(1, 2, 3, 4), labels=c("Trail", "Track", "Road",
+  "Mixed")))
+ult_corregido <- ultrarunning %>% 
+          replace_na(replace = list(age = round(mean(.$age, na.rm = T),0),
+                                    pb_elev = round(mean(.$pb_elev, na.rm = T),0),
+                                    pb100k_dec = round(mean(.$pb100k_dec, na.rm = T),2),
+                                    avg_km = round(mean(.$avg_km, na.rm = T),0),
+                                    teique_sf = round(mean(.$teique_sf, na.rm = T),6),
+                                    steu_b = round(mean(.$steu_b, na.rm = T),0),
+                                    stem_b = round(mean(.$stem_b, na.rm = T),6)))
+ult_corregido1 <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido2 <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido3 <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido_tot <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto"))) %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto"))) %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
+df1 <- ult_corregido1 %>% filter(teique_sf == "Bajo") %>% select(where(is.numeric)) %>%
+  summarise(across(everything(), mean)) %>% add_row(ult_corregido1 %>% filter(teique_sf == "Medio") %>%
+  select(where(is.numeric)) %>% summarise(across(everything(), mean))) %>%add_row(ult_corregido1 %>%
+  filter(teique_sf == "Alto") %>% select(where(is.numeric)) %>% summarise(across(everything(), mean)))
+df2 <- ult_corregido2 %>% filter(steu_b == "Bajo") %>% select(where(is.numeric)) %>%
+  summarise(across(everything(), mean)) %>% add_row(ult_corregido2 %>% filter(steu_b == "Medio") %>%
+  select(where(is.numeric)) %>% summarise(across(everything(), mean))) %>%add_row(ult_corregido2 %>%
+  filter(steu_b == "Alto") %>% select(where(is.numeric)) %>% summarise(across(everything(), mean)))
+df3 <- ult_corregido3 %>% filter(stem_b == "Bajo") %>% select(where(is.numeric)) %>%
+  summarise(across(everything(), mean)) %>% add_row(ult_corregido3 %>% filter(stem_b == "Medio") %>%
+  select(where(is.numeric)) %>% summarise(across(everything(), mean))) %>%add_row(ult_corregido3 %>%
+  filter(stem_b == "Alto") %>% select(where(is.numeric)) %>% summarise(across(everything(), mean)))
+
+```
+
+:::{.panel-tabset}
+
+### Inteligencia
+```{r}
+stars(df1,key.loc=c(5.5,2.25),cex=0.5,labels=row.names(df1),draw.segments=TRUE)
+```
+### Compresión
+
+```{r}
+stars(df2,key.loc=c(5.5,2.25),cex=0.5,labels=row.names(df1),draw.segments=TRUE)
+```
+
+### Gestión
+
+```{r}
+stars(df3,key.loc=c(5.5,2.25),cex=0.5,labels=row.names(df1),draw.segments=TRUE)
+```
+
+:::
+
+---
