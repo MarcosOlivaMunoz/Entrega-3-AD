@@ -18,6 +18,8 @@ lang: ES
 
 knitr::opts_chunk$set(echo=FALSE)
 library("tidyverse", warn.conflicts = FALSE)
+library(ggcorrplot)
+library(GGally)
 load(url("https://www.causeweb.org/tshs/datasets/ultrarunning.RData"))
 ```
 
@@ -36,8 +38,15 @@ El dataset contienen los datos de 288 individuos que completaron ultra-maratones
 Brevemente, el modelo Tripartite-EI postula que la inteligencia emocional opera en tres niveles: inteligencia, comprensión y gestión. La inteligencia representa lo que sabemos sobre nuestras emociones y las de los demás, su origen y cómo gestionarlas; la comprensión representa nuestra habilidad para implementar nuestra inteligencia emocional en tiempo real; y la gestión representa nuestros patrones habituales de respuesta a las emociones.
 :::
 
----
+## Variables y datos "tidy"
+::: {.incremental}
+- 2 variables cualitativas y 8 variables cuantitativas
+- 3 variables para los resultados del test
+- Datos cualitativos almacenados como números
+- Gran cantidad de `NA` (solo 125 entradas completas)
+:::
 
+---
 ```{r}
 #| include: false
 ultrarunning <- ultrarunning %>% as_tibble() %>% mutate(sex = factor(sex,
@@ -56,6 +65,42 @@ ult_corregido1 <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 
 ult_corregido2 <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
 ult_corregido3 <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
 ult_corregido_tot <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto"))) %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto"))) %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
+```
+
+:::{.panel-tabset}
+### Hombres
+```{r}
+a<-ult_corregido %>%filter(sex == "Male")%>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+ggpairs(a)
+
+a<-ult_corregido %>%filter(sex == "Male") %>%
+  select(1,4,6,7,8,9,10)
+stars(a,key.loc = c(15, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+### Mujeres
+```{r}
+#gráfico para ver sólo las mujeres
+a<-ult_corregido %>%filter(sex == "Female")%>%
+  select(2,1,4,6,7,8,9,10) %>%
+  na.omit
+ggpairs(a)
+
+a<-ult_corregido %>%filter(sex == "Female") %>%
+  select(1,4,6,7,8,9,10)
+stars(a,key.loc = c(36, 1),cex=0.45,
+      labels=row.names(a), draw.segments=TRUE)
+```
+:::
+
+
+---
+
+```{r}
+#| include: false
+
 df1 <- ult_corregido1 %>% filter(teique_sf == "Bajo") %>% select(where(is.numeric)) %>%
   summarise(across(everything(), mean)) %>% add_row(ult_corregido1 %>% filter(teique_sf == "Medio") %>%
   select(where(is.numeric)) %>% summarise(across(everything(), mean))) %>%add_row(ult_corregido1 %>%
@@ -68,8 +113,8 @@ df3 <- ult_corregido3 %>% filter(stem_b == "Bajo") %>% select(where(is.numeric))
   summarise(across(everything(), mean)) %>% add_row(ult_corregido3 %>% filter(stem_b == "Medio") %>%
   select(where(is.numeric)) %>% summarise(across(everything(), mean))) %>%add_row(ult_corregido3 %>%
   filter(stem_b == "Alto") %>% select(where(is.numeric)) %>% summarise(across(everything(), mean)))
-
 ```
+
 
 :::{.panel-tabset}
 

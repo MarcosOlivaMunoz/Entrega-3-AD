@@ -13,6 +13,8 @@ lang: ES
 ```{r Setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE)
 library("tidyverse", warn.conflicts = FALSE)
+library(ggcorrplot)
+library(GGally)
 load(url("https://www.causeweb.org/tshs/datasets/ultrarunning.RData"))
 ```
 
@@ -131,7 +133,6 @@ Seguimos con los datos separados por sexo para observar si hay alguna diferencia
 
 Hombres:
 ```{r}
-library(GGally)
 #gráfico para ver sólo los hombres
 a<-ult_corregido %>%filter(sex == "Male")%>%
   select(2,1,4,6,7,8,9,10) %>%
