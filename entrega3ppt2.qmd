@@ -46,7 +46,8 @@ Brevemente, el modelo Tripartite-EI postula que la inteligencia emocional opera 
 - Gran cantidad de `NA` (solo 125 entradas completas)
 :::
 
----
+## Según el sexo
+
 ```{r}
 #| include: false
 ultrarunning <- ultrarunning %>% as_tibble() %>% mutate(sex = factor(sex,
@@ -67,6 +68,13 @@ ult_corregido3 <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),lab
 ult_corregido_tot <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto"))) %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto"))) %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
 ```
 
+```{r}
+a <- ult_corregido %>% select(2,1,4,6,7,8,9,10)
+pairs(a, col = c("red", "blue")[as.integer(a$sex)], pch = 18)
+```
+
+---
+
 :::{.panel-tabset}
 ### Hombres
 ```{r}
@@ -80,7 +88,9 @@ a<-ult_corregido %>%filter(sex == "Male") %>%
 stars(a,key.loc = c(15, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
+
 ### Mujeres
+
 ```{r}
 #gráfico para ver sólo las mujeres
 a<-ult_corregido %>%filter(sex == "Female")%>%
@@ -95,6 +105,14 @@ stars(a,key.loc = c(36, 1),cex=0.45,
 ```
 :::
 
+## Según la superficie
+
+```{r}
+a <- ult_corregido %>% select(3,1,4,6,7,8,9,10)
+pairs(a,
+      col = c("green", "purple","orange","blue")[as.integer(a$pb_surface)],
+      pch = 18)
+```
 
 ---
 
@@ -115,13 +133,14 @@ df3 <- ult_corregido3 %>% filter(stem_b == "Bajo") %>% select(where(is.numeric))
   filter(stem_b == "Alto") %>% select(where(is.numeric)) %>% summarise(across(everything(), mean)))
 ```
 
-
 :::{.panel-tabset}
 
 ### Inteligencia
+
 ```{r}
 stars(df1,key.loc=c(5.5,2.25),cex=0.5,labels=row.names(df1),draw.segments=TRUE)
 ```
+
 ### Compresión
 
 ```{r}
@@ -133,7 +152,4 @@ stars(df2,key.loc=c(5.5,2.25),cex=0.5,labels=row.names(df1),draw.segments=TRUE)
 ```{r}
 stars(df3,key.loc=c(5.5,2.25),cex=0.5,labels=row.names(df1),draw.segments=TRUE)
 ```
-
 :::
-
----
