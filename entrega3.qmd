@@ -186,30 +186,19 @@ Continuaremos con gráficos de estrella según las puntuaciones en las pruebas d
 Primero graficamos inteligencia emocional.
 Nivel Bajo:
 ```{r}
-ult_corregido <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto")))
-ult_corregido <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
-ult_corregido <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
-```
-```{r}
-ult_corregido <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto")))
-ult_corregido <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
-ult_corregido <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido1 <- ult_corregido %>% mutate(teique_sf = ordered(cut(.$teique_sf, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido2 <- ult_corregido %>% mutate(steu_b = ordered(cut(.$steu_b, 3),labels=c("Bajo","Medio","Alto")))
+ult_corregido3 <- ult_corregido %>% mutate(stem_b = ordered(cut(.$stem_b, 3),labels=c("Bajo","Medio","Alto")))
 
-a<-ult_corregido %>%filter(teique_sf == "Bajo")%>%
-<<<<<<< HEAD
-  select(1,4,6,7); a
-stars(a, key.loc = c(15, 1),cex=0.45,
-=======
-  select(1,4,6,7) %>%
-  na.omit
+a<-ult_corregido1 %>%filter(teique_sf == "Bajo") %>% select(1,4,6,7)
+
 stars(a,key.loc = c(11, 1),cex=0.45,
->>>>>>> 97905ce9ad0a585a9a88b07f0119d65fbcec9ab1
       labels=row.names(a), draw.segments=TRUE)
 ```
 
 Nivel Medio:
 ```{r}
-a<-ult_corregido %>%filter(teique_sf == "Medio")%>%
+a<-ult_corregido1 %>%filter(teique_sf == "Medio")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(32, 1),cex=0.45,
@@ -217,7 +206,7 @@ stars(a,key.loc = c(32, 1),cex=0.45,
 ```
 Nivel Alto:
 ```{r}
-a<-ult_corregido %>%filter(teique_sf == "Alto")%>%
+a<-ult_corregido1 %>%filter(teique_sf == "Alto")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(15, 1),cex=0.45,
@@ -226,7 +215,7 @@ stars(a,key.loc = c(15, 1),cex=0.45,
 Seguimos con la comprensión emocinal.
 Nivel bajo:
 ```{r}
-a<-ult_corregido %>%filter(steu_b == "Bajo")%>%
+a<-ult_corregido2 %>%filter(steu_b == "Bajo")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(15, 1),cex=0.45,
@@ -235,7 +224,7 @@ stars(a,key.loc = c(15, 1),cex=0.45,
 
 Nivel medio:
 ```{r}
-a<-ult_corregido %>%filter(steu_b == "Medio")%>%
+a<-ult_corregido2 %>%filter(steu_b == "Medio")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(37, 1),cex=0.45,
@@ -244,7 +233,7 @@ stars(a,key.loc = c(37, 1),cex=0.45,
 
 nivel alto:
 ```{r}
-a<-ult_corregido %>%filter(steu_b == "Alto")%>%
+a<-ult_corregido2 %>%filter(steu_b == "Alto")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(15, 1),cex=0.45,
@@ -253,7 +242,7 @@ stars(a,key.loc = c(15, 1),cex=0.45,
 Finalizamos con la gestión emocional.
 Nivel bajo:
 ```{r}
-a<-ult_corregido %>%filter(stem_b == "Bajo")%>%
+a<-ult_corregido3 %>%filter(stem_b == "Bajo")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(7, 2.5),cex=0.45,
@@ -262,7 +251,7 @@ stars(a,key.loc = c(7, 2.5),cex=0.45,
 
 Nivel medio
 ```{r}
-a<-ult_corregido %>%filter(stem_b == "Medio")%>%
+a<-ult_corregido3 %>%filter(stem_b == "Medio")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(35, 1),cex=0.45,
@@ -271,7 +260,7 @@ stars(a,key.loc = c(35, 1),cex=0.45,
 
 Nivel alto:
 ```{r}
-a<-ult_corregido %>%filter(stem_b == "Alto")%>%
+a<-ult_corregido3 %>%filter(stem_b == "Alto")%>%
   select(1,4,6,7) %>%
   na.omit
 stars(a,key.loc = c(20, 1),cex=0.45,
