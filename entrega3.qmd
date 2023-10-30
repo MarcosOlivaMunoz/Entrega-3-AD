@@ -271,3 +271,5 @@ Podemos obsevar que no hay una correlación clara ni ningún patrón entre los d
 
 Concluimos que a pesar de todos los gráficos y análisis realizados no hemos encontrado ninguna correlación relevante. Esto puede ser debido a la gran cantidad de NAs que hemos tenido que reemplazar. Habría que tomar nuevos datos completos de más personas para poder sacar conclusiones más precisas.
 
+Adjuntamos el link del repositorio: https://github.com/MarcosOlivaMunoz/Entrega-3-AD/tree/main
+
