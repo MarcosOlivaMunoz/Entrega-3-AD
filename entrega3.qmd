@@ -267,5 +267,7 @@ stars(a,key.loc = c(20, 1),cex=0.45,
       labels=row.names(a), draw.segments=TRUE)
 ```
 
+Podemos obsevar que no hay una correlación clara ni ningún patrón entre los distintos niveles de inteligencia y las otras variables
 
+Concluimos que a pesar de todos los gráficos y análisis realizados no hemos encontrado ninguna correlación relevante. Esto puede ser debido a la gran cantidad de NAs que hemos tenido que reemplazar. Habría que tomar nuevos datos completos de más personas para poder sacar conclusiones más precisas.
 
